@@ -1,13 +1,26 @@
 
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
+import { getEmployeer } from "../services/Apiservice";
 import './data.css';
 
+// const Table = () => {
+//   const data = [
+//     { name: "John Doe", role: "Developer", gender: "Male" },
+//     { name: "Jane Doe", role: "Designer", gender: "Female" },
+//     { name: "Jim Smith", role: "Manager", gender: "Male" }
+//   ];
+
+
 const Table = () => {
-  const data = [
-    { name: "John Doe", role: "Developer", gender: "Male" },
-    { name: "Jane Doe", role: "Designer", gender: "Female" },
-    { name: "Jim Smith", role: "Manager", gender: "Male" }
-  ];
+  const  [data,setEmployeer]=useState([])
+useEffect(()=>{
+  let mount= true
+  getEmployeer().then(res=>{console.log("res from api",res)
+  setEmployeer(res)
+  return()=>mount=false
+  })
+},[])
+
 
   const [searchTerm, setSearchTerm] = useState("");
   const [genderFilter, setGenderFilter] = useState("");
@@ -65,3 +78,4 @@ const Table = () => {
 };
 
 export default Table;
+
